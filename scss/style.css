@@ -358,6 +358,11 @@ a.more {
   transform: translate(-40%, -40%);
   z-index: -1;
 }
+@media (max-width: 576px) {
+  .why-choose-section .img-wrap:before {
+    transform: translate(-40%, -10%);
+  }
+}
 .why-choose-section .img-wrap img {
   border-radius: 20px;
 }
@@ -656,6 +661,11 @@ a.more {
   .footer-section .subscription-form {
     margin-top: 0px;
     margin-bottom: 80px;
+  }
+}
+@media (max-width: 768px) {
+  .footer-section .subscription-form {
+    margin-top: 200px;
   }
 }
 .footer-section .subscription-form h3 {

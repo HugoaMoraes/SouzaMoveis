@@ -373,6 +373,9 @@ a {
       background-size: contain;
       transform: translate(-40%, -40%);
       z-index: -1;
+      @media (max-width: $sm) {
+        transform: translate(-40%, -10%);
+      }
     }
     img {
       border-radius: 20px;
@@ -693,6 +696,9 @@ a {
     @media (min-width: $lg) {
       margin-top: 0px;
       margin-bottom: 80px;
+    }
+    @media (max-width: $md) {
+      margin-top: 200px;
     }
     h3 {
       font-size: 18px;
