@@ -29,9 +29,22 @@ $font-family: "Inter", sans-serif;
   border-radius: 6px;
 }
 
+html,
 body {
   overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  width: 100%;
   position: relative;
+}
+
+.why-choose-section,
+.we-help-section,
+.testimonial-section,
+.card-section,
+.untree_co-section,
+.footer-section {
+  overflow-x: clip;
 }
 
 body {
@@ -900,7 +913,7 @@ textarea {
 
 html {
   scroll-behavior: smooth;
-  background-color: $lighter;
+  background-color: $primary;
 }
 
 .custom-navbar {
