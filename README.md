@@ -16,7 +16,7 @@ Projeto do site Souza Móveis uma empressa e marcenaria de móveis planejados.
 
 ## Links
 
-[Acesso ao Site](https://hugoamoraes.github.io/SouzaMoveis/)
+[Acesso ao Site](https://souzamoveis.com.br/)
 
 ## Documentação de cores
 
