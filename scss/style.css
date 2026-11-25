@@ -35,7 +35,7 @@ body {
   font-weight: 400;
   line-height: 28px;
   color: #6a6a6a;
-  font-size: 14px;
+  font-size: 16px;
   background-color: #eff2f1;
 }
 
@@ -95,7 +95,7 @@ a.more {
 .custom-navbar .custom-navbar-nav li a {
   font-weight: 500;
   color: #ffffff !important;
-  opacity: 0.5;
+  opacity: 0.88;
   transition: 0.3s all ease;
   position: relative;
 }
@@ -215,7 +215,7 @@ a.more {
 }
 
 .hero p {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 30px;
 }
 
@@ -231,6 +231,7 @@ a.more {
   left: -17%;
   z-index: 2;
   width: 134%;
+  height: auto;
   max-width: none !important;
   margin-top: 5px;
 }
@@ -335,7 +336,7 @@ a.more {
 .btn.btn-white-outline {
   background: transparent;
   border-width: 2px;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.65);
 }
 
 .btn.btn-white-outline:hover {
@@ -628,10 +629,13 @@ a.more {
 .testimonial-slider-wrap .tns-nav button {
   background: none;
   border: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  width: 0 !important;
-  height: 7px !important;
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0;
   margin: 2px;
 }
 
@@ -645,11 +649,9 @@ a.more {
 
 .testimonial-slider-wrap .tns-nav button:before {
   display: block;
-  width: 7px;
-  height: 7px;
-  left: 0;
-  top: 0;
-  position: absolute;
+  width: 8px;
+  height: 8px;
+  position: relative;
   content: "";
   border-radius: 50%;
   transition: 0.3s all ease;
@@ -896,6 +898,10 @@ textarea {
   color: #a92727 !important;
 }
 
+.text-black {
+  color: #2f2f2f !important;
+}
+
 .logohugo {
   background: url("../images/HByHugo.svg") no-repeat center;
   width: 45px;
@@ -1097,6 +1103,154 @@ html {
 
 .map-iframe {
   line-height: 0 !important;
+}
+
+/* Avatares de iniciais (depoimentos e equipe) */
+.avatar-initials {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(169, 39, 39, 0.12);
+  color: #a92727;
+  border: 2px solid rgba(169, 39, 39, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.team-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 24px;
+  height: 100%;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+}
+
+.team-card .avatar-initials {
+  width: 80px;
+  height: 80px;
+  font-size: 26px;
+  background: #a92727;
+  color: #ffffff;
+  border-color: #a92727;
+}
+
+/* NAP e Copyright clean no rodapé */
+.footer-nap-wrap {
+  margin-top: 28px;
+}
+
+@media (min-width: 768px) {
+  .footer-nap-wrap {
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-nap-wrap {
+    margin-top: 76px;
+  }
+}
+
+.footer-nap-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2f2f2f;
+  margin-bottom: 12px;
+  letter-spacing: 0.2px;
+}
+
+.footer-nap {
+  margin-bottom: 0;
+}
+
+.footer-nap li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 13.5px;
+  color: #6a6a6a;
+  line-height: 1.55;
+}
+
+.footer-nap li:last-child {
+  margin-bottom: 0;
+}
+
+.footer-nap i,
+.footer-nap svg {
+  color: #a92727;
+  width: 15px;
+  height: 15px;
+  font-size: 13px;
+  margin-top: 4px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.footer-nap a {
+  color: #6a6a6a;
+}
+
+.footer-nap a:hover {
+  color: #a92727;
+}
+
+.copyright-lines {
+  color: #6a6a6a;
+  line-height: 1.5;
+}
+
+.copyright-lines .copyright-line-1 {
+  margin-bottom: 2px;
+}
+
+.copyright-lines .copyright-line-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 0;
+}
+
+@media (min-width: 992px) {
+  .copyright-lines .copyright-line-2 {
+    justify-content: flex-start;
+  }
+}
+
+.copyright-lines .logohugo {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  background-size: contain;
+}
+
+/* Revelação suave no scroll em CSS puro (substitui animejs externo) */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

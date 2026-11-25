@@ -5,6 +5,15 @@
   var WPP_DEFAULT_URL =
     "https://wa.me/556184179578?text=Ol%C3%A1!+Vim+pelo+site+e+gostaria+de+solicitar+um+or%C3%A7amento+para+um+projeto+de+m%C3%B3veis+planejados.";
 
+  var pushLeadEvent = function (channel) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "generate_lead",
+      lead_channel: channel,
+      page_path: window.location.pathname,
+    });
+  };
+
   var tinyslider = function () {
     var el = document.querySelectorAll(".testimonial-slider");
 
@@ -107,6 +116,9 @@
     var wppButtons = document.querySelectorAll("a.wpp");
     wppButtons.forEach(function (btn) {
       btn.href = WPP_DEFAULT_URL;
+      btn.addEventListener("click", function () {
+        pushLeadEvent("whatsapp_floating");
+      });
     });
 
     var forms = document.querySelectorAll(".js-wpp-form");
@@ -141,6 +153,7 @@
           "?text=" +
           encodeURIComponent(linhas.join("\n"));
 
+        pushLeadEvent("whatsapp_form");
         window.open(url, "_blank", "noopener,noreferrer");
 
         var modalEl = form.closest(".modal");
@@ -154,91 +167,43 @@
   };
   initWhatsAppForms();
 
-  // Animações suaves de imagens no scroll com Anime.js (ESM: esm.sh / jsDelivr)
+  // Revelação suave de imagens abaixo da dobra em CSS puro (sem ocultar o Hero LCP e sem CDN externo)
   var initScrollImageAnimations = function () {
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      !("IntersectionObserver" in window) ||
+      (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    ) {
       return;
     }
 
     var targets = Array.from(
       document.querySelectorAll(
-        ".why-choose-section .img-wrap img, .why-choose-section .feature .icon img, .we-help-section .imgs-grid .grid img, .card-section .post-entry .post-thumbnail img, .footer-section .sofa-img img"
+        ".why-choose-section .img-wrap img, .why-choose-section .feature .icon img, .we-help-section .imgs-grid .grid img, .card-section .post-entry .post-thumbnail img"
       )
     );
+    if (targets.length === 0) return;
 
-    import("https://esm.sh/animejs")
-      .catch(function () {
-        return import("https://cdn.jsdelivr.net/npm/animejs/+esm");
-      })
-      .then(function (anime) {
-        var animate = anime.animate;
-        var stagger = anime.stagger;
-        if (!animate) return;
+    // Separa leituras de geometria das escritas de classe para evitar layout thrashing
+    var belowFold = targets.filter(function (el) {
+      return el.getBoundingClientRect().top >= window.innerHeight;
+    });
 
-        // 1. Imagem do Hero (sem alterar o texto do Hero)
-        var heroImg = document.querySelector(".hero .hero-img-wrap img");
-        if (heroImg) {
-          animate(heroImg, {
-            opacity: [0, 1],
-            translateX: [24, 0],
-            scale: [0.97, 1],
-            duration: 850,
-            ease: "outCubic",
-          });
-        }
-
-        if (targets.length === 0) return;
-
-        var observer = new IntersectionObserver(
-          function (entries, obs) {
-            var icons = [];
-            var photos = [];
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                if (entry.target.closest(".feature .icon")) {
-                  icons.push(entry.target);
-                } else {
-                  photos.push(entry.target);
-                }
-                obs.unobserve(entry.target);
-              }
-            });
-            if (icons.length > 0) {
-              animate(icons, {
-                opacity: [0, 1],
-                scale: [0.6, 1],
-                delay: stagger ? stagger(70) : 0,
-                duration: 550,
-                ease: "outCubic",
-              });
-            }
-            if (photos.length > 0) {
-              animate(photos, {
-                opacity: [0, 1],
-                translateY: [28, 0],
-                scale: [0.96, 1],
-                delay: stagger ? stagger(90) : 0,
-                duration: 750,
-                ease: "outCubic",
-              });
-            }
-          },
-          { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
-        );
-
-        targets.forEach(function (el) {
-          var rect = el.getBoundingClientRect();
-          if (rect.top >= window.innerHeight) {
-            el.style.opacity = "0";
+    var observer = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
           }
-          observer.observe(el);
         });
-      })
-      .catch(function () {
-        targets.forEach(function (el) {
-          el.style.opacity = "1";
-        });
-      });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -24px 0px" }
+    );
+
+    belowFold.forEach(function (el) {
+      el.classList.add("js-reveal");
+      observer.observe(el);
+    });
   };
   initScrollImageAnimations();
 })();
